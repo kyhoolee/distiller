@@ -165,6 +165,9 @@ def expand_binary_map(param, group_type, binary_map):
         return a.view(*param.shape), binary_map
     elif group_type == 'Channels':
         num_filters, num_channels = param.size(0), param.size(1)
+        print('\n\n++++++++expand_binary_map:: ', param, group_type, binary_map)
+        print('NUM_FILTER:: ', num_filters)
+        print('NUM_CHANNEL:: ', num_channels)
         a = binary_map.expand(num_filters, num_channels)
         c = a.unsqueeze(-1)
         d = c.expand(num_filters, num_channels, param.size(2) * param.size(3)).contiguous()
