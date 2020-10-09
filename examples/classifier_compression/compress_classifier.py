@@ -72,8 +72,10 @@ def main():
     # Parse arguments
     args = parser.add_cmdline_args(classifier.init_classifier_compression_arg_parser(True)).parse_args()
     app = ClassifierCompressorSampleApp(args, script_dir=os.path.dirname(__file__))
+    print('\n\n++++++++ 1-ARGS:: ', args)
     if app.handle_subapps():
         return
+    print('\n\n++++++++ 2-ARGS:: ', args)
     init_knowledge_distillation(app.args, app.model, app.compression_scheduler)
     app.run_training_loop()
     # Finally run results on the test set
