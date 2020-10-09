@@ -5,7 +5,23 @@
 # However, instead of one-shot filter ranking and pruning, we perform one-shot channel ranking and
 # pruning, using L1-magnitude of the structures.
 #
-# time python3 compress_classifier.py -a=resnet56_cifar -p=50 ../../../data.cifar10 --epochs=70 --lr=0.1 --compress=../pruning_filters_for_efficient_convnets/resnet56_cifar_channel_rank.yaml --resume-from=checkpoint.resnet56_cifar_baseline.pth.tar --reset-optimizer --vs=0
+# time python3 compress_classifier.py -a=resnet56_cifar 
+# -p=50 ../../../data.cifar10 --epochs=70 --lr=0.1 
+# --compress=../pruning_filters_for_efficient_convnets/resnet56_cifar_channel_rank.yaml 
+# --resume-from=checkpoint.resnet56_cifar_baseline.pth.tar --reset-optimizer --vs=0
+
+# time python3 compress_classifier.py -a=vgg19 -p=50 
+# ../../../data.imagenet --epochs=10 --lr=0.00001 
+# --compress=../pruning_filters_for_efficient_convnets/vgg19.schedule_filter_rank.yaml 
+# --pretrained
+
+# time python examples/classifier_compression/compress_classifier.py \
+# -a=resnet101 -p=50 \
+# /home/hongky/datasets/imagenet \
+# --epochs=10 --lr=0.00001 \
+# --compress=examples/pruning_filters_for_efficient_convnets/resnet101_channel_rank.yaml \
+# --pretrained
+
 #
 # Baseline results:
 #     Top1: 92.850    Top5: 99.780    Loss: 0.464
@@ -152,8 +168,8 @@ extensions:
   net_thinner:
       class: StructureRemover
       thinning_func_str: remove_channels
-      arch: resnet56_cifar
-      dataset: cifar10
+      arch: resnet101
+      dataset: imagenet
 
 lr_schedulers:
    exp_finetuning_lr:
